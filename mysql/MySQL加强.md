@@ -209,11 +209,104 @@
   	SET str='helljava';
   END $
   
+  -- 删除存储过程
+  DROP PROCEDURE pro_testOut;
+  -- 调用
+  -- 如何接受返回参数的值？？
+  -- ***mysql的变量******
+  --  全局变量（内置变量）：mysql数据库内置的变量 （所有连接都起作用）
+          -- 查看所有全局变量： show variables
+          -- 查看某个全局变量： select @@变量名
+          -- 修改全局变量： set 变量名=新值
+          -- character_set_client: mysql服务器的接收数据的编码
+          -- character_set_results：mysql服务器输出数据的编码
+          
+  --  会话变量： 只存在于当前客户端与数据库服务器端的一次连接当中。如果连接断开，那么会话变量全部丢失！
+          -- 定义会话变量: set @变量=值
+          -- 查看会话变量： select @变量
+          
+  -- 局部变量： 在存储过程中使用的变量就叫局部变量。只要存储过程执行完毕，局部变量就丢失！！
+  
+  -- 1)定义一个会话变量name, 2)使用name会话变量接收存储过程的返回值
+  CALL pro_testOut(@NAME);
+  -- 查看变量值
+  SELECT @NAME;
+  
+  -- 3.3 带有输入输出参数的存储过程
+  DELIMITER $
+  CREATE PROCEDURE pro_testInOut(INOUT n INT)  -- INOUT： 输入输出参数
+  BEGIN
+     -- 查看变量
+     SELECT n;
+     SET n =500;
+  END $
+  
+  -- 调用
+  SET @n=10;
+  
+  CALL pro_testInOut(@n);
+  
+  SELECT @n;
+  
+  -- 3.4 带有条件判断的存储过程
+  -- 需求：输入一个整数，如果1，则返回“星期一”,如果2，返回“星期二”,如果3，返回“星期三”。其他数字，返回“错误输入”;
+  DELIMITER $
+  CREATE PROCEDURE pro_testIf(IN num INT,OUT str VARCHAR(20))
+  BEGIN
+  	IF num=1 THEN
+  		SET str='星期一';
+  	ELSEIF num=2 THEN
+  		SET str='星期二';
+  	ELSEIF num=3 THEN
+  		SET str='星期三';
+  	ELSE
+  		SET str='输入错误';
+  	END IF;
+  END $
+  
+  CALL pro_testIf(4,@str);
+   
+  SELECT @str;
+  
+  -- 3.5 带有循环功能的存储过程
+  -- 需求： 输入一个整数，求和。例如，输入100，统计1-100的和
+  DELIMITER $
+  CREATE PROCEDURE pro_testWhile(IN num INT,OUT result INT)
+  BEGIN
+  	-- 定义一个局部变量
+  	DECLARE i INT DEFAULT 1;
+  	DECLARE vsum INT DEFAULT 0;
+  	WHILE i<=num DO
+  	      SET vsum = vsum+i;
+  	      SET i=i+1;
+  	END WHILE;
+  	SET result=vsum;
+  END $
+  
+  DROP PROCEDURE pro_testWhile;
+  
+  
+  CALL pro_testWhile(100,@result);
+  
+  SELECT @result;
+  
+  USE day16;
+  
+  -- 3.6 使用查询的结果赋值给变量（INTO）
+  DELIMITER $
+  CREATE PROCEDURE pro_findById2(IN eid INT,OUT vname VARCHAR(20) )
+  BEGIN
+  	SELECT empName INTO vname FROM employee WHERE id=eid;
+  END $
+  
+  CALL pro_findById2(1,@NAME);
+  
+  SELECT @NAME;
   
   
   
   ```
-
+  
   
 
 
