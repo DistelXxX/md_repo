@@ -3,9 +3,10 @@
 
   - su   切换用户
 
-  - ls -a   把隐藏的文件显示出来
+  - ls 显示全部文件
 
-  - ll   非常详细地显示出来
+    - ls -a   显示全部文件，并把隐藏的文件显示出来
+    - ll   显示全部文件并显示文件的详细信息
 
   - clear   清屏
 
@@ -39,9 +40,12 @@
 
   - grep 查找指定字符串
 
+    - cat xxx | grep "xxx"
+
   - wc 显示文档行数，字数，字符数
 
-    -  -c统计字节数- l统计行数-w统计字数 
+    -  -c统计字节数- l统计行数-w统计词数 
+    -  wc -c xxx
 
   - find 查找指定文件
     
@@ -116,7 +120,7 @@
   - gzip
 
     - ``` shell
-      - gzip xxx.tar(压缩后最终格式：xxx.tar.gz)
+      - gzip xxx.tar(压缩后最终格式：xxx.tar.gz)直接将源文件压缩，不保留源文件
       - gzip -l xxx.tar.gz(查看压缩包详细信息)
       - gzip -dv xxx.tar.gz(解压缩文件)
       - gzip -v -9 xxx.tar(高压缩比)
