@@ -1,33 +1,64 @@
 <h1>linux</h1>
-
 - # **1、文件目录操作指令**
 
   - su   切换用户
+
   - ls -a   把隐藏的文件显示出来
+
   - ll   非常详细地显示出来
+
   - clear   清屏
+
   - cd   切换目录
+
   - touch   新建空文件
+
   - echo   添加内容到文件中
     - echo "xxxxxxxxxxx" > xxx（覆盖）
     - echo "xxxxxxxxxxx" >> xxx（追加内容）
+    
   - mkdir   创建目录
+    
     - -p   创建多级目录
+    
   - rm 
-    - rmdir 删除看目录
+    - rmdir 删除空文件夹
     - 删除普通文件
     - -rf 强制删除文件
+    - -r 连同文件夹一起删除
+    
   - cp 拷贝文件
+
+    - -r 连同文件夹一同复制
+
   - mv 
     - 移动文件
     - 修改文件名
+    
   - pwd 显示当前目录
+
   - grep 查找指定字符串
+
   - wc 显示文档行数，字数，字符数
+
+    -  -c统计字节数- l统计行数-w统计字数 
+
   - find 查找指定文件
-    - find -name xxxx
+    
+    - find <指定目录> <指定条件> <指定动作>
+    
+      whereis 加参数与文件名
+    
+      locate 只加文件名
+    
+      find 直接搜索磁盘，较慢
+    
+      find / -name “string*”
+    
   - tree 显示目录树
+    
     - yum install tree（安装tree命令）
+    
   - cat 显示文件内容
     - cat -n xxx 每行以标号显示
     - cat > xxx 编辑内容
@@ -54,17 +85,17 @@
     - du -h familyA
   - df 显示文件系统磁盘空间的使用情况
     - df
-    - df -h
+    - df -h 空闲空间
   - free 显示当前内存和交换空间的使用情况 	
   - ifconfig 显示网络接口信息 
   - ping 测试网络的连通性 
-  - netstat 显示网络状态信息
+  - netstat 显示网络状态信息，查看网络是否连通
 
 - # **3、备份压缩命令**
 
   - zip
 
-    - ``` /linux
+    - ``` shell
       - zip（yum install zip）
         - zip -r xxx.zip /目标文件
       - unzip(yum install unzip)
@@ -73,7 +104,7 @@
 
   - tar(打包/解包命令) 
 
-    - ``` /linux
+    - ``` shell
       - tar -cvf xxx.tar /目标文件（仅打包，不压缩）
       - tar -xvf xxx.tar（解压缩）
       - tar -zcvf xxx.tar.gz /目标文件（打包后，以gzip压缩）
@@ -84,7 +115,7 @@
 
   - gzip
 
-    - ``` /linux
+    - ``` shell
       - gzip xxx.tar(压缩后最终格式：xxx.tar.gz)
       - gzip -l xxx.tar.gz(查看压缩包详细信息)
       - gzip -dv xxx.tar.gz(解压缩文件)
@@ -94,7 +125,7 @@
 
   - bzip2
 
-    - ``` /linux
+    - ``` /shell
       - bzip2 -z xxx.tar(压缩后最终格式：xxx.tar.bz2)
       - bzip2 -z xxx.tar.bz2(解压缩)
       ```
@@ -198,3 +229,5 @@
   - reboot   重启
   - systemctl stop firewalld.service   关闭防火墙
   - service iptables status  永久关闭防火墙
+  - history 查看用过的命令列表
+  - 
